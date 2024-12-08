@@ -1,6 +1,16 @@
 {
+  "common": {
+    "requiredMessage": "Required field",
+    "maxLengthMessage": "Max length {length}",
+    "unknownErrorMessage": "Unknown error"
+  },
   "home": {
-    "title": "QuAero (ch)",
-    "about": "Go to the about page"
+    "title": "QuAero"
+  },
+  "createSuperAdminForm": {
+    "title": "Add superadmin",
+    "login": "Login",
+    "password": "Password",
+    "submitButton": "Create"
   }
 }

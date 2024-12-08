@@ -12,7 +12,7 @@ export const LocaleSwitcher = () => {
   const params = useParams();
 
   return (
-    <Dropdown label={locale} dismissOnClick={false} gradientDuoTone="redToYellow">
+    <Dropdown label={locale} dismissOnClick={false} gradientDuoTone="redToYellow" outline>
       {["en", "ru", "ch"].map((item) => (
         <DropdownItem
           key={item}

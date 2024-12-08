@@ -9,7 +9,12 @@ const config: Config = {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      container: {
+        center: true,
+        padding: "1rem",
+      },
+    },
   },
   plugins: [flowbite.plugin()],
 };

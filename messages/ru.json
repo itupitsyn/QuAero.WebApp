@@ -1,6 +1,16 @@
 {
+  "common": {
+    "requiredMessage": "Обязательное поле",
+    "maxLengthMessage": "Максимальная длина {length}",
+    "unknownErrorMessage": "Неизвестная ошибка"
+  },
   "home": {
-    "title": "QuAero (ru)",
-    "about": "Go to the about page"
+    "title": "QuAero"
+  },
+  "createSuperAdminForm": {
+    "title": "Добавление суперадмина",
+    "login": "Логин",
+    "password": "Пароль",
+    "submitButton": "Создать"
   }
 }
