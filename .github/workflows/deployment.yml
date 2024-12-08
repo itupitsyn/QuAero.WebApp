@@ -16,4 +16,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            cd C:\QuAero.WebApp & docker stop QuAero & docker rm QuAero & docker rmi QuAero & git pull & docker build . -t QuAero & docker run -p 3200:3000 -d -e DATABASE_URL=postgresql://QuAero:QuAero@host.docker.internal:5432/QuAero?schema=public --name QuAero --restart always QuAero
+            cd C:\QuAero.WebApp & docker stop qu-aero & docker rm qu-aero & docker rmi qu-aero & git pull & docker build . -t qu-aero & docker run -p 3200:3000 -d -e DATABASE_URL=postgresql://QuAero:QuAero@host.docker.internal:5432/QuAero?schema=public --name qu-aero --restart always qu-aero
