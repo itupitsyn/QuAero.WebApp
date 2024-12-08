@@ -2,7 +2,7 @@ ARG node_image=oven/bun:1
 
 FROM $node_image as dependencies
 WORKDIR /QuAero
-COPY package.json package-lock.json ./
+COPY package.json bun.lockb ./
 RUN bun i
 
 FROM $node_image as builder
