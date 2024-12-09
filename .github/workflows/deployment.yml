@@ -15,5 +15,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: 22
-          script: |
-            cd C:\QuAero.WebApp & docker stop qu-aero & docker rm qu-aero & docker rmi qu-aero & git pull & docker build . -t qu-aero & docker run -p 3200:3000 -d -e DATABASE_URL=postgresql://QuAero:QuAero@host.docker.internal:5432/QuAero?schema=public --name qu-aero --restart always qu-aero
+          script: cd C:\ & git clone https://github.com/itupitsyn/QuAero.WebApp.git & cd C:\QuAero.WebApp & echo DATABASE_URL=${{ secrets.HOST_DATABASE_URL }} > .env & docker stop qu-aero & docker rm qu-aero & docker rmi qu-aero & docker build . -t qu-aero & docker run -p 3200:3000 -d -e DATABASE_URL=${{ secrets.DATABASE_URL }} --name qu-aero --restart always qu-aero & cd C:\ & rmdir /S /Q QuAero.WebApp
+
