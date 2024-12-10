@@ -28,9 +28,9 @@ export async function generateMetadata({ params: { locale } }: LocaleParams) {
   };
 }
 
-interface RootLayoutProps extends PropsWithChildren<LocaleParams> {}
+interface LocaleLayoutProps extends PropsWithChildren<LocaleParams> {}
 
-export default async function RootLayout({ children, params: { locale } }: RootLayoutProps) {
+export default async function LocaleLayout({ children, params: { locale } }: LocaleLayoutProps) {
   if (!routing.locales.includes(locale as AppLocale)) {
     notFound();
   }
