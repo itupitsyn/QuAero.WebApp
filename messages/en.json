@@ -12,5 +12,12 @@
     "login": "Login",
     "password": "Password",
     "submitButton": "Create"
+  },
+  "loginForm": {
+    "title": "Sign in",
+    "login": "Login",
+    "password": "Password",
+    "submitButton": "Sign in",
+    "wrongCredentialsErrorMessage": "Wrong credentials"
   }
 }

@@ -12,5 +12,12 @@
     "login": "Логин",
     "password": "Пароль",
     "submitButton": "Создать"
+  },
+  "loginForm": {
+    "title": "Вход",
+    "login": "Логин",
+    "password": "Пароль",
+    "submitButton": "Войти",
+    "wrongCredentialsErrorMessage": "Неверные имя пользователя или пароль"
   }
 }

@@ -1,22 +1,23 @@
 "use client";
 
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import { FC, useCallback, useMemo } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { createSuperAdmin } from "@/utils/api";
 import { useRouter } from "@/i18n/routing";
+import { signIn } from "@/utils/api";
+import axios from "axios";
 
-type SuperAdminFormData = {
+type LoginData = {
   login: string;
   password: string;
 };
 
-export const CreateSuperAdminForm: FC = () => {
-  const t = useTranslations("createSuperAdminForm");
+export const LoginForm: FC = () => {
+  const t = useTranslations("loginForm");
   const tCommon = useTranslations("common");
   const { push } = useRouter();
 
@@ -33,7 +34,7 @@ export const CreateSuperAdminForm: FC = () => {
     control,
     formState: { isSubmitting, errors },
     handleSubmit,
-  } = useForm<SuperAdminFormData>({
+  } = useForm<LoginData>({
     resolver: yupResolver(schema),
     defaultValues: {
       login: "",
@@ -41,16 +42,20 @@ export const CreateSuperAdminForm: FC = () => {
     },
   });
 
-  const submitHandler: SubmitHandler<SuperAdminFormData> = useCallback(
+  const submitHandler: SubmitHandler<LoginData> = useCallback(
     async (formData) => {
       try {
-        await createSuperAdmin(formData);
+        await signIn(formData);
         push({ pathname: "/" });
-      } catch {
-        toast.error(tCommon("unknownErrorMessage"));
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 403) {
+          toast.error(t("wrongCredentialsErrorMessage"));
+        } else {
+          toast.error(tCommon("unknownErrorMessage"));
+        }
       }
     },
-    [push, tCommon],
+    [push, tCommon, t],
   );
 
   return (
