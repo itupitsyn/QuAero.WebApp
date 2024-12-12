@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "@/i18n/routing";
 import { signIn } from "@/utils/api";
 import axios from "axios";
+import { useAuth } from "@/contexts/AuthContext";
 
 type LoginData = {
   login: string;
@@ -20,6 +21,7 @@ export const LoginForm: FC = () => {
   const t = useTranslations("loginForm");
   const tCommon = useTranslations("common");
   const { push } = useRouter();
+  const { updateAuth } = useAuth();
 
   const schema = useMemo(
     () =>
@@ -46,6 +48,7 @@ export const LoginForm: FC = () => {
     async (formData) => {
       try {
         await signIn(formData);
+        updateAuth();
         push({ pathname: "/" });
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 403) {
@@ -55,7 +58,7 @@ export const LoginForm: FC = () => {
         }
       }
     },
-    [push, tCommon, t],
+    [updateAuth, push, t, tCommon],
   );
 
   return (

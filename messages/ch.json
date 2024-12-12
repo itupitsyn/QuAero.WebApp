@@ -7,6 +7,10 @@
   "home": {
     "title": "QuAero"
   },
+  "navbar": {
+    "signin": "Sign in",
+    "signout": "Sign out"
+  },
   "createSuperAdminForm": {
     "title": "Add superadmin",
     "login": "Login",

@@ -39,6 +39,7 @@ export const POST = async (req: NextRequest) => {
       expires: session.expires,
       httpOnly: true,
       sameSite: "lax",
+      secure: true,
     });
 
     return new NextResponse(JSON.stringify(session));
