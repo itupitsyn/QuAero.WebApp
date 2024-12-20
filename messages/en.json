@@ -2,7 +2,9 @@
   "common": {
     "requiredMessage": "Required field",
     "maxLengthMessage": "Max length {length}",
-    "unknownErrorMessage": "Unknown error"
+    "unknownErrorMessage": "Unknown error",
+    "cancelButton": "Cancel",
+    "addButton": "Add"
   },
   "home": {
     "title": "QuAero"
@@ -23,5 +25,25 @@
     "password": "Password",
     "submitButton": "Sign in",
     "wrongCredentialsErrorMessage": "Wrong credentials"
+  },
+  "usersMgmtForm": {
+    "addUserFormHeader": "Add user",
+    "login": "Login",
+    "name": "Name",
+    "password": "Password",
+    "saveButton": "Submit",
+    "addButton": "Add",
+    "deleteButton": "Delete",
+    "editButton": "Edit",
+    "deleteUserConfirmation": "Do you really want to delete user {user}?",
+    "resetPasswordConfirmation": "Do you really want to reset password of {user}?",
+    "can_create_admins_label": "Admin creation",
+    "can_create_admins_tooltip": "User can create admins",
+    "can_create_SRT_label": "SRT creation",
+    "can_create_SRT_tooltip": "User can create SRT",
+    "can_create_SRT_manager_label": "SRT managers creation",
+    "can_create_SRT_manager_tooltip": "User can create SRT managers",
+    "can_create_SRT_employee_label": "Employees adding",
+    "can_create_SRT_employee_tooltip": "User can create SRT employees"
   }
 }

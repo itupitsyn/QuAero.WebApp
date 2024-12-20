@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
 import { Permission } from "@/types/permissions";
+import { calculatePasswordHash } from "@/utils/users";
 
 export const POST = async (req: NextRequest) => {
   const suExists = await doesSUExist();
@@ -19,7 +20,7 @@ export const POST = async (req: NextRequest) => {
   }
 
   try {
-    const password = createHash("sha256").update(body.password).digest("hex");
+    const password = calculatePasswordHash(body.password);
     const newSu = await prisma.user.create({ data: { login: body.login, password } });
     await prisma.permissions.create({
       data: {

@@ -1,9 +1,10 @@
+import { TOKEN } from "@/constants/cookies";
 import prisma from "@/prisma/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get("sessionToken");
+    const token = req.cookies.get(TOKEN);
     if (!token) return new NextResponse("", { status: 401 });
     const session = await prisma.session.findFirst({
       where: { sessionToken: token.value },

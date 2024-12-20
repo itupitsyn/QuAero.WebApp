@@ -2,7 +2,9 @@
   "common": {
     "requiredMessage": "Обязательное поле",
     "maxLengthMessage": "Максимальная длина {length}",
-    "unknownErrorMessage": "Неизвестная ошибка"
+    "unknownErrorMessage": "Неизвестная ошибка",
+    "cancelButton": "Отмена",
+    "addButton": "Добавить"
   },
   "home": {
     "title": "QuAero"
@@ -23,5 +25,25 @@
     "password": "Пароль",
     "submitButton": "Войти",
     "wrongCredentialsErrorMessage": "Неверные имя пользователя или пароль"
+  },
+  "usersMgmtForm": {
+    "addUserFormHeader": "Добавить пользователя",
+    "login": "Логин",
+    "name": "Имя",
+    "password": "Пароль",
+    "saveButton": "Сохранить",
+    "addButton": "Добавить",
+    "deleteButton": "Удалить",
+    "editButton": "Редактировать",
+    "deleteUserConfirmation": "Вы действительно хотите удалить пользователя {user}?",
+    "resetPasswordConfirmation": "Вы действительно хотите сбросить пароль пользователю {user}?",
+    "can_create_admins_label": "Создание админов",
+    "can_create_admins_tooltip": "Пользователь может создавать админов",
+    "can_create_SRT_label": "Создание ПСО",
+    "can_create_SRT_tooltip": "Пользователь может создавать ПСО",
+    "can_create_SRT_manager_label": "Создание руководителей ПСО",
+    "can_create_SRT_manager_tooltip": "Пользователь может создавать руководителей ПСО",
+    "can_create_SRT_employee_label": "Добавление сотрудников",
+    "can_create_SRT_employee_tooltip": "Пользователь может добавлять сотрудников ПСО"
   }
 }

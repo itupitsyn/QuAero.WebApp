@@ -1,7 +1,9 @@
 import prisma from "@/prisma/utils/db";
 import { NextRequest, NextResponse } from "next/server";
-import { createHash, randomBytes, randomUUID } from "crypto";
+import { randomBytes, randomUUID } from "crypto";
 import { cookies } from "next/headers";
+import { TOKEN } from "@/constants/cookies";
+import { calculatePasswordHash } from "@/utils/users";
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
@@ -11,7 +13,7 @@ export const POST = async (req: NextRequest) => {
   }
 
   try {
-    const password = createHash("sha256").update(body.password).digest("hex");
+    const password = calculatePasswordHash(body.password);
     const foundUser = await prisma.user.findFirst({
       where: { login: body.login, password },
       select: {
@@ -31,11 +33,11 @@ export const POST = async (req: NextRequest) => {
       data: {
         userId: foundUser.id,
         sessionToken: token,
-        expires: new Date(Date.now() + 30 * 24 * 60 * 60),
+        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       },
     });
 
-    cookies().set("sessionToken", session.sessionToken, {
+    cookies().set(TOKEN, session.sessionToken, {
       expires: session.expires,
       httpOnly: true,
       sameSite: "lax",

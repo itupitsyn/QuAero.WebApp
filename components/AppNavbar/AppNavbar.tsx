@@ -7,11 +7,12 @@ import { Link } from "@/i18n/routing";
 
 export const AppNavbar = () => {
   return (
-    <Navbar className="mb-8" fluid rounded>
+    <Navbar className="mb-8">
       <Link href="/" className="flex items-center gap-4">
         <Image src={logo} alt="QuAero" width={48} height={48} className="rounded-full" />
         <span className="ml-2 font-bold">QuAero</span>
       </Link>
+
       <div className="flex items-center gap-4">
         <UserInfo />
         <DarkThemeToggle />
