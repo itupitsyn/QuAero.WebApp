@@ -10,3 +10,16 @@ export type UserApiModel = {
   image: string | null;
   permissions: Record<Permission, boolean>;
 };
+
+export type CreateUserRequest = {
+  login: string;
+  password: string;
+  name?: string;
+  permissions?: Permission[];
+};
+
+export type UpdateUserRequest = {
+  login?: string;
+  name?: string;
+  permissions?: Permission[];
+};

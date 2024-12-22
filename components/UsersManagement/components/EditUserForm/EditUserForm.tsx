@@ -1,24 +1,39 @@
 "use client";
 
-import { UserApiModel } from "@/types/models";
+import { UpdateUserRequest, UserApiModel } from "@/types/models";
+import { Permission } from "@/types/permissions";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import { FC, useCallback, useMemo } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
+import { PermissionList } from "../PermissionList";
+import { EditUserFormData } from "../../types";
+import { toast } from "react-toastify";
+import { updateUser } from "@/utils/api";
+import axios from "axios";
+
+const getDefaultValues = (user: UserApiModel) => {
+  const formData: EditUserFormData = {
+    name: user?.name ?? "",
+    login: user?.login ?? "",
+  };
+
+  Object.entries(user.permissions).forEach(([k, v]) => {
+    if (v) formData[k as Permission] = true;
+  });
+
+  return formData;
+};
 
 interface EditUserFormProps {
   user: UserApiModel;
   onCancelClick: (userId: string) => void;
+  onAfterSubmit?: (userId: string) => void;
 }
 
-type EditUserFormData = {
-  name?: string | null;
-  login: string;
-};
-
-export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick }) => {
+export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAfterSubmit }) => {
   const t = useTranslations("usersMgmtForm");
   const tCommon = useTranslations("common");
 
@@ -34,49 +49,75 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick }) => 
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<EditUserFormData>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      name: user?.name ?? "",
-      login: user?.login ?? "",
-    },
+    defaultValues: getDefaultValues(user),
   });
 
-  const submitHandler: SubmitHandler<EditUserFormData> = useCallback(async (formData) => {}, []);
+  const submitHandler: SubmitHandler<EditUserFormData> = useCallback(
+    async (formData) => {
+      const permissions: Permission[] = [];
+      if (formData[Permission.CanCreateAdmins]) permissions.push(Permission.CanCreateAdmins);
+      if (formData[Permission.CanCreateEmployee]) permissions.push(Permission.CanCreateEmployee);
+      if (formData[Permission.CanCreateSRT]) permissions.push(Permission.CanCreateSRT);
+      if (formData[Permission.CanCreateSRTManager]) permissions.push(Permission.CanCreateSRTManager);
+
+      try {
+        const params: UpdateUserRequest = {
+          login: formData.login,
+          name: formData.name ?? undefined,
+          permissions,
+        };
+        await updateUser(user.id, params);
+        reset();
+        onAfterSubmit?.(user.id);
+      } catch (e) {
+        if (axios.isAxiosError(e) && e.response?.data.key === "lastSa") {
+          toast.error(t("lastSaError"));
+          return;
+        }
+        toast.error(tCommon("unknownErrorMessage"));
+      }
+    },
+    [onAfterSubmit, reset, t, tCommon, user.id],
+  );
 
   return (
-    <form noValidate onSubmit={handleSubmit(submitHandler)} className="flex flex-col items-start gap-4">
-      {user && <div className="font-bold">#{user.id}</div>}
+    <form noValidate onSubmit={handleSubmit(submitHandler)} className="flex flex-col items-start gap-6">
+      <div className="flex flex-col items-start gap-x-8 gap-y-6 md:flex-row">
+        <div className="grid grid-cols-[1fr_5fr] items-center gap-4">
+          <Label className="opacity-60">{t("login")}</Label>
+          <Controller
+            control={control}
+            name="login"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                value={field.value ?? ""}
+                color={errors.login?.message ? "failure" : undefined}
+                helperText={errors.login?.message}
+              />
+            )}
+          />
 
-      <div className="grid grid-cols-[1fr_5fr] items-center gap-4">
-        <Label className="opacity-60">{t("login")}</Label>
-        <Controller
-          control={control}
-          name="login"
-          render={({ field }) => (
-            <TextInput
-              {...field}
-              value={field.value ?? ""}
-              color={errors.login?.message ? "failure" : undefined}
-              helperText={errors.login?.message}
-            />
-          )}
-        />
+          <Label className="opacity-60">{t("name")}</Label>
+          <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                value={field.value ?? ""}
+                color={errors.name?.message ? "failure" : undefined}
+                helperText={errors.name?.message}
+              />
+            )}
+          />
+        </div>
 
-        <Label className="opacity-60">{t("name")}</Label>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <TextInput
-              {...field}
-              value={field.value ?? ""}
-              color={errors.name?.message ? "failure" : undefined}
-              helperText={errors.name?.message}
-            />
-          )}
-        />
+        <PermissionList control={control} />
       </div>
 
       <div className="flex gap-4 sm:self-end">

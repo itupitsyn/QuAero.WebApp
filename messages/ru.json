@@ -28,6 +28,7 @@
   },
   "usersMgmtForm": {
     "addUserFormHeader": "Добавить пользователя",
+    "id": "id: {id}",
     "login": "Логин",
     "name": "Имя",
     "password": "Пароль",
@@ -35,7 +36,8 @@
     "addButton": "Добавить",
     "deleteButton": "Удалить",
     "editButton": "Редактировать",
-    "deleteUserConfirmation": "Вы действительно хотите удалить пользователя {user}?",
+    "deleteUserConfirmationHeader": "Удаление пользователя",
+    "deleteUserConfirmationText": "Вы действительно хотите удалить пользователя {user}?",
     "resetPasswordConfirmation": "Вы действительно хотите сбросить пароль пользователю {user}?",
     "can_create_admins_label": "Создание админов",
     "can_create_admins_tooltip": "Пользователь может создавать админов",
@@ -44,6 +46,7 @@
     "can_create_SRT_manager_label": "Создание руководителей ПСО",
     "can_create_SRT_manager_tooltip": "Пользователь может создавать руководителей ПСО",
     "can_create_SRT_employee_label": "Добавление сотрудников",
-    "can_create_SRT_employee_tooltip": "Пользователь может добавлять сотрудников ПСО"
+    "can_create_SRT_employee_tooltip": "Пользователь может добавлять сотрудников ПСО",
+    "lastSaError": "Нельзя удалить последнего суперадмина"
   }
 }

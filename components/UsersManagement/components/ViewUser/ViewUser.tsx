@@ -9,9 +9,10 @@ import { TbEdit, TbTrash } from "react-icons/tb";
 interface ViewUserProps {
   user: UserApiModel;
   onClick: (userId: string) => void;
+  onDeleteUserClick: (user: UserApiModel) => void;
 }
 
-export const ViewUser: FC<ViewUserProps> = ({ user, onClick }) => {
+export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick }) => {
   const t = useTranslations("usersMgmtForm");
 
   return (
@@ -27,7 +28,7 @@ export const ViewUser: FC<ViewUserProps> = ({ user, onClick }) => {
           <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onClick(user.id)}>
             <TbEdit />
           </Button>
-          <Button gradientDuoTone="redToYellow" outline size="xs">
+          <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onDeleteUserClick(user)}>
             <TbTrash />
           </Button>
         </div>

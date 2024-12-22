@@ -27,6 +27,9 @@ export default async function Page() {
       image: true,
       Permissions: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   const constructUser = (user: ArrayItem<typeof users>): UserApiModel => {

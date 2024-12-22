@@ -54,7 +54,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
           <NextIntlClientProvider messages={messages}>
             <AppNavbar />
 
-            <main className="container">{children}</main>
+            <main className="container min-w-[320px]">{children}</main>
 
             <ToastContainer />
           </NextIntlClientProvider>
