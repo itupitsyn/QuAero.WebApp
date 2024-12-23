@@ -29,3 +29,7 @@ export const deleteUser = (userId: string) => {
 export const updateUser = (userId: string, params: UpdateUserRequest) => {
   return axios.patch(`/api/users/${userId}`, params);
 };
+
+export const resetPassword = (userId: string, password: string) => {
+  return axios.patch(`/api/users/${userId}/password`, { password });
+};

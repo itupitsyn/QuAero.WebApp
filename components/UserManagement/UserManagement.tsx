@@ -11,18 +11,20 @@ import { useRouter } from "@/i18n/routing";
 import { deleteUser } from "@/utils/api";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { ResetPasswordForm } from "./components/ResetPasswordForm";
 
-interface UsersManagementProps {
+interface UserManagementProps {
   users: UserApiModel[];
 }
 
-export const UsersManagement: FC<UsersManagementProps> = ({ users }) => {
-  const t = useTranslations("usersMgmtForm");
+export const UserManagement: FC<UserManagementProps> = ({ users }) => {
+  const t = useTranslations("userMgmtForm");
   const tCommon = useTranslations("common");
   const { refresh } = useRouter();
 
   const [addUserFormOpen, setAddUserFormOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<UserApiModel>();
+  const [userToResetPassword, setUserToResetPassword] = useState<UserApiModel>();
 
   const [modes, setModes] = useState<Record<string, "view" | "edit">>(
     Object.fromEntries(users.map((item) => [item.id, "view"])),
@@ -39,6 +41,23 @@ export const UsersManagement: FC<UsersManagementProps> = ({ users }) => {
   }, []);
 
   const onDeleteUser = useCallback(async () => {
+    if (!userToDelete) return;
+
+    try {
+      await deleteUser(userToDelete.id);
+      setUserToDelete(undefined);
+      refresh();
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e) && e.response?.data.key === "lastSa") {
+        toast.error(t("lastSaError"));
+        return;
+      }
+
+      toast.error(tCommon("unknownErrorMessage"));
+    }
+  }, [refresh, t, tCommon, userToDelete]);
+
+  const onResetPasswordClick = useCallback(async () => {
     if (!userToDelete) return;
 
     try {
@@ -81,7 +100,12 @@ export const UsersManagement: FC<UsersManagementProps> = ({ users }) => {
             {modes[item.id] === "edit" ? (
               <EditUserForm user={item} onCancelClick={onCancelClick} onAfterSubmit={onAfterEdit} />
             ) : (
-              <ViewUser user={item} onClick={onEditUserClick} onDeleteUserClick={setUserToDelete} />
+              <ViewUser
+                user={item}
+                onClick={onEditUserClick}
+                onDeleteUserClick={setUserToDelete}
+                onResetPasswordClick={setUserToResetPassword}
+              />
             )}
           </Card>
         ))}
@@ -102,6 +126,8 @@ export const UsersManagement: FC<UsersManagementProps> = ({ users }) => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <ResetPasswordForm userToResetPassword={userToResetPassword} onClose={() => setUserToResetPassword(undefined)} />
     </>
   );
 };

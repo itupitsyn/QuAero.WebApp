@@ -10,7 +10,7 @@ interface PermissionListProps {
 }
 
 export const PermissionList: FC<PermissionListProps> = ({ control }) => {
-  const t = useTranslations("usersMgmtForm");
+  const t = useTranslations("userMgmtForm");
 
   return (
     <div className="col-span-2 flex flex-wrap gap-4">

@@ -10,6 +10,7 @@
     "title": "QuAero"
   },
   "navbar": {
+    "userManagement": "User management",
     "signin": "Sign in",
     "signout": "Sign out"
   },
@@ -26,7 +27,7 @@
     "submitButton": "Sign in",
     "wrongCredentialsErrorMessage": "Wrong credentials"
   },
-  "usersMgmtForm": {
+  "userMgmtForm": {
     "addUserFormHeader": "Add user",
     "id": "id: {id}",
     "login": "Login",
@@ -38,7 +39,7 @@
     "editButton": "Edit",
     "deleteUserConfirmationHeader": "Delete user",
     "deleteUserConfirmationText": "Do you really want to delete user {user}?",
-    "resetPasswordConfirmation": "Do you really want to reset password of {user}?",
+    "resetPasswordConfirmationHeader": "New password for user {user}",
     "can_create_admins_label": "Admin creation",
     "can_create_admins_tooltip": "User can create admins",
     "can_create_SRT_label": "SRT creation",

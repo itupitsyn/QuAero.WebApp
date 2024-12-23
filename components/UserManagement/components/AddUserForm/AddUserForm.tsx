@@ -22,7 +22,7 @@ interface AddUserFormProps {
 }
 
 export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit }) => {
-  const t = useTranslations("usersMgmtForm");
+  const t = useTranslations("userMgmtForm");
   const tCommon = useTranslations("common");
 
   const schema = useMemo(
@@ -82,51 +82,57 @@ export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit
         <form
           noValidate
           onSubmit={handleSubmit(submitHandler)}
-          className="grid grid-cols-[1fr_5fr] items-center gap-4"
+          className="grid grid-cols-[1fr_5fr] items-start gap-4"
           id={FORM_ID}
         >
-          <Label className="opacity-60">{t("login")}</Label>
-          <Controller
-            control={control}
-            name="login"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                value={field.value ?? ""}
-                color={errors.login?.message ? "failure" : undefined}
-                helperText={errors.login?.message}
-              />
-            )}
-          />
+          <Label className="mt-2.5 block opacity-60">{t("login")}</Label>
+          <div>
+            <Controller
+              control={control}
+              name="login"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  value={field.value ?? ""}
+                  color={errors.login?.message ? "failure" : undefined}
+                  helperText={errors.login?.message}
+                />
+              )}
+            />
+          </div>
 
-          <Label className="opacity-60">{t("name")}</Label>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                value={field.value ?? ""}
-                color={errors.name?.message ? "failure" : undefined}
-                helperText={errors.name?.message}
-              />
-            )}
-          />
+          <Label className="mt-2.5 block opacity-60">{t("name")}</Label>
+          <div>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  value={field.value ?? ""}
+                  color={errors.name?.message ? "failure" : undefined}
+                  helperText={errors.name?.message}
+                />
+              )}
+            />
+          </div>
 
-          <Label className="opacity-60">{t("password")}</Label>
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                type="password"
-                value={field.value ?? ""}
-                color={errors.password?.message ? "failure" : undefined}
-                helperText={errors.password?.message}
-              />
-            )}
-          />
+          <Label className="mt-2.5 block opacity-60">{t("password")}</Label>
+          <div>
+            <Controller
+              control={control}
+              name="password"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  type="password"
+                  value={field.value ?? ""}
+                  color={errors.password?.message ? "failure" : undefined}
+                  helperText={errors.password?.message}
+                />
+              )}
+            />
+          </div>
 
           <PermissionList control={control} />
         </form>

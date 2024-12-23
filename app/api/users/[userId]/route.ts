@@ -4,7 +4,6 @@ import prisma from "@/prisma/utils/db";
 import { UpdateUserRequest } from "@/types/models";
 import { Permission } from "@/types/permissions";
 import { canCreateAdmins, validatePermissionArray } from "@/utils/permissions";
-import { calculatePasswordHash } from "@/utils/users";
 import { NextRequest, NextResponse } from "next/server";
 
 type RouteParams = {

@@ -34,7 +34,7 @@ interface EditUserFormProps {
 }
 
 export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAfterSubmit }) => {
-  const t = useTranslations("usersMgmtForm");
+  const t = useTranslations("userMgmtForm");
   const tCommon = useTranslations("common");
 
   const schema = useMemo(
@@ -87,34 +87,38 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAft
   return (
     <form noValidate onSubmit={handleSubmit(submitHandler)} className="flex flex-col items-start gap-6">
       <div className="flex flex-col items-start gap-x-8 gap-y-6 md:flex-row">
-        <div className="grid grid-cols-[1fr_5fr] items-center gap-4">
-          <Label className="opacity-60">{t("login")}</Label>
-          <Controller
-            control={control}
-            name="login"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                value={field.value ?? ""}
-                color={errors.login?.message ? "failure" : undefined}
-                helperText={errors.login?.message}
-              />
-            )}
-          />
+        <div className="grid grid-cols-[1fr_5fr] items-start gap-4">
+          <Label className="mt-2.5 block opacity-60">{t("login")}</Label>
+          <div>
+            <Controller
+              control={control}
+              name="login"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  value={field.value ?? ""}
+                  color={errors.login?.message ? "failure" : undefined}
+                  helperText={errors.login?.message}
+                />
+              )}
+            />
+          </div>
 
-          <Label className="opacity-60">{t("name")}</Label>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                value={field.value ?? ""}
-                color={errors.name?.message ? "failure" : undefined}
-                helperText={errors.name?.message}
-              />
-            )}
-          />
+          <Label className="mt-2.5 block opacity-60">{t("name")}</Label>
+          <div>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  value={field.value ?? ""}
+                  color={errors.name?.message ? "failure" : undefined}
+                  helperText={errors.name?.message}
+                />
+              )}
+            />
+          </div>
         </div>
 
         <PermissionList control={control} />

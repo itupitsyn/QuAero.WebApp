@@ -16,13 +16,7 @@ export const POST = async (req: NextRequest) => {
     const password = calculatePasswordHash(body.password);
     const foundUser = await prisma.user.findFirst({
       where: { login: body.login, password },
-      select: {
-        id: true,
-        login: true,
-        name: true,
-        image: true,
-        email: true,
-      },
+      select: { id: true },
     });
 
     if (!foundUser) return new NextResponse("", { status: 403 });

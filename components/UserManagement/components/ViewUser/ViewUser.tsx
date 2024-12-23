@@ -4,16 +4,17 @@ import { UserApiModel } from "@/types/models";
 import { Button, Tooltip } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
-import { TbEdit, TbTrash } from "react-icons/tb";
+import { TbEdit, TbRestore, TbTrash } from "react-icons/tb";
 
 interface ViewUserProps {
   user: UserApiModel;
   onClick: (userId: string) => void;
   onDeleteUserClick: (user: UserApiModel) => void;
+  onResetPasswordClick: (user: UserApiModel) => void;
 }
 
-export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick }) => {
-  const t = useTranslations("usersMgmtForm");
+export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick, onResetPasswordClick }) => {
+  const t = useTranslations("userMgmtForm");
 
   return (
     <div className="flex grow flex-col gap-2">
@@ -30,6 +31,9 @@ export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick }
           </Button>
           <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onDeleteUserClick(user)}>
             <TbTrash />
+          </Button>
+          <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onResetPasswordClick(user)}>
+            <TbRestore />
           </Button>
         </div>
       </div>

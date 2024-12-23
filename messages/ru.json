@@ -10,6 +10,7 @@
     "title": "QuAero"
   },
   "navbar": {
+    "userManagement": "Управление пользователями",
     "signin": "Войти",
     "signout": "Выйти"
   },
@@ -26,7 +27,7 @@
     "submitButton": "Войти",
     "wrongCredentialsErrorMessage": "Неверные имя пользователя или пароль"
   },
-  "usersMgmtForm": {
+  "userMgmtForm": {
     "addUserFormHeader": "Добавить пользователя",
     "id": "id: {id}",
     "login": "Логин",
@@ -38,7 +39,7 @@
     "editButton": "Редактировать",
     "deleteUserConfirmationHeader": "Удаление пользователя",
     "deleteUserConfirmationText": "Вы действительно хотите удалить пользователя {user}?",
-    "resetPasswordConfirmation": "Вы действительно хотите сбросить пароль пользователю {user}?",
+    "resetPasswordConfirmationHeader": "Новый пароль для пользователя {user}",
     "can_create_admins_label": "Создание админов",
     "can_create_admins_tooltip": "Пользователь может создавать админов",
     "can_create_SRT_label": "Создание ПСО",

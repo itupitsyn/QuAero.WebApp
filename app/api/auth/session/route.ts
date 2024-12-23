@@ -15,6 +15,7 @@ export async function GET(req: NextRequest) {
             image: true,
             login: true,
             id: true,
+            Permissions: true,
           },
         },
       },
@@ -22,7 +23,14 @@ export async function GET(req: NextRequest) {
 
     if (!session) return new NextResponse("", { status: 401 });
 
-    return new NextResponse(JSON.stringify(session.user));
+    const { Permissions: permissions, ...user } = session.user;
+
+    return new NextResponse(
+      JSON.stringify({
+        ...user,
+        permissions: Object.fromEntries(permissions.map(({ permission, allowed }) => [permission, allowed])),
+      }),
+    );
   } catch {
     return new NextResponse("Something went wrong", { status: 500 });
   }

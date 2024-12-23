@@ -1,4 +1,4 @@
-import { UsersManagement } from "@/components/UsersManagement";
+import { UserManagement } from "@/components/UserManagement";
 import { TOKEN } from "@/constants/cookies";
 import prisma from "@/prisma/utils/db";
 import { ArrayItem } from "@/types/common";
@@ -52,5 +52,5 @@ export default async function Page() {
     return { ...result, permissions };
   };
 
-  return <UsersManagement users={users.map(constructUser)} />;
+  return <UserManagement users={users.map(constructUser)} />;
 }

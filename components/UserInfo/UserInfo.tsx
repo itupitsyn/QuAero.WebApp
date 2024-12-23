@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/contexts/AuthContext";
 import { Link, useRouter } from "@/i18n/routing";
+import { Permission } from "@/types/permissions";
 import { signOut } from "@/utils/api";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -43,6 +44,15 @@ export const UserInfo: FC = () => {
           </Navbar.Brand>
         }
       >
+        {user.permissions[Permission.CanCreateAdmins] && (
+          <Dropdown.Item>
+            <Link className="transition-opacity hover:opacity-60" href="/admin/user-mgmt">
+              {t("userManagement")}
+            </Link>
+          </Dropdown.Item>
+        )}
+
+        <Dropdown.Divider />
         <Dropdown.Item>
           <Link className="transition-opacity hover:opacity-60" href="/" onClick={onSignOutClick}>
             {t("signout")}
