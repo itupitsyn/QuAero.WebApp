@@ -14,7 +14,7 @@ RUN bun run build
 
 FROM $node_image AS runner
 WORKDIR /QuAero
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 COPY --from=builder /QuAero/.next/standalone .
 COPY --from=builder /QuAero/.next/static ./.next/static
