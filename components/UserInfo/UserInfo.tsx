@@ -52,6 +52,14 @@ export const UserInfo: FC = () => {
           </Dropdown.Item>
         )}
 
+        {user.permissions[Permission.CanCreateSRT] && (
+          <Dropdown.Item>
+            <Link className="transition-opacity hover:opacity-60" href="/admin/srt-mgmt">
+              {t("srtManagement")}
+            </Link>
+          </Dropdown.Item>
+        )}
+
         <Dropdown.Divider />
         <Dropdown.Item>
           <Link className="transition-opacity hover:opacity-60" href="/" onClick={onSignOutClick}>

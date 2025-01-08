@@ -3,14 +3,18 @@
     "requiredMessage": "Обязательное поле",
     "maxLengthMessage": "Максимальная длина {length}",
     "unknownErrorMessage": "Неизвестная ошибка",
+    "addButton": "Добавить",
     "cancelButton": "Отмена",
-    "addButton": "Добавить"
+    "saveButton": "Сохранить",
+    "deleteButton": "Удалить",
+    "editButton": "Редактировать"
   },
   "home": {
     "title": "QuAero"
   },
   "navbar": {
     "userManagement": "Управление пользователями",
+    "srtManagement": "Управление отрядами",
     "signin": "Войти",
     "signout": "Выйти"
   },
@@ -28,15 +32,12 @@
     "wrongCredentialsErrorMessage": "Неверные имя пользователя или пароль"
   },
   "userMgmtForm": {
+    "title": "Управление пользователями",
     "addUserFormHeader": "Добавить пользователя",
     "id": "id: {id}",
     "login": "Логин",
     "name": "Имя",
     "password": "Пароль",
-    "saveButton": "Сохранить",
-    "addButton": "Добавить",
-    "deleteButton": "Удалить",
-    "editButton": "Редактировать",
     "deleteUserConfirmationHeader": "Удаление пользователя",
     "deleteUserConfirmationText": "Вы действительно хотите удалить пользователя {user}?",
     "resetPasswordConfirmationHeader": "Новый пароль для пользователя {user}",
@@ -49,5 +50,13 @@
     "can_create_SRT_employee_label": "Добавление сотрудников",
     "can_create_SRT_employee_tooltip": "Пользователь может добавлять сотрудников ПСО",
     "lastSaError": "Нельзя удалить последнего суперадмина"
+  },
+  "teamMgmtForm": {
+    "title": "Управление ПСО",
+    "id": "id: {id}",
+    "name": "Название",
+    "addSRTFormHeader": "Добавить ПСО",
+    "deleteTeamConfirmationHeader": "Удаление ПСО",
+    "deleteTeamConfirmationText": "Вы действительно хотите удалить ПСО {srt}?"
   }
 }

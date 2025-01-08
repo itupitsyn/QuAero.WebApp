@@ -3,14 +3,18 @@
     "requiredMessage": "Required field",
     "maxLengthMessage": "Max length {length}",
     "unknownErrorMessage": "Unknown error",
+    "addButton": "Add",
     "cancelButton": "Cancel",
-    "addButton": "Add"
+    "saveButton": "Submit",
+    "deleteButton": "Delete",
+    "editButton": "Edit"
   },
   "home": {
     "title": "QuAero"
   },
   "navbar": {
     "userManagement": "User management",
+    "srtManagement": "Rescue team management",
     "signin": "Sign in",
     "signout": "Sign out"
   },
@@ -28,26 +32,26 @@
     "wrongCredentialsErrorMessage": "Wrong credentials"
   },
   "userMgmtForm": {
+    "title": "User management",
     "addUserFormHeader": "Add user",
     "id": "id: {id}",
     "login": "Login",
     "name": "Name",
     "password": "Password",
-    "saveButton": "Submit",
-    "addButton": "Add",
-    "deleteButton": "Delete",
-    "editButton": "Edit",
     "deleteUserConfirmationHeader": "Delete user",
     "deleteUserConfirmationText": "Do you really want to delete user {user}?",
     "resetPasswordConfirmationHeader": "New password for user {user}",
     "can_create_admins_label": "Admin creation",
     "can_create_admins_tooltip": "User can create admins",
     "can_create_SRT_label": "SRT creation",
-    "can_create_SRT_tooltip": "User can create SRT",
+    "can_create_SRT_tooltip": "User can create search and rescue teams",
     "can_create_SRT_manager_label": "SRT managers creation",
-    "can_create_SRT_manager_tooltip": "User can create SRT managers",
+    "can_create_SRT_manager_tooltip": "User can create search and rescue team managers",
     "can_create_SRT_employee_label": "Employees adding",
-    "can_create_SRT_employee_tooltip": "User can create SRT employees",
+    "can_create_SRT_employee_tooltip": "User can create search and rescue team employees",
     "lastSaError": "You can't delete the last superadmin"
+  },
+  "teamMgmtForm": {
+    "id": "id: {id}"
   }
 }

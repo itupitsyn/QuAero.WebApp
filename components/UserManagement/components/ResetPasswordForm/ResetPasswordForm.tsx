@@ -95,7 +95,7 @@ export const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ userToResetPassw
           {tCommon("cancelButton")}
         </Button>
         <Button type="submit" gradientDuoTone="redToYellow" disabled={isSubmitting} form={FORM_ID}>
-          {t("saveButton")}
+          {tCommon("saveButton")}
         </Button>
       </Modal.Footer>
     </Modal>

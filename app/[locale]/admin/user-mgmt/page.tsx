@@ -11,7 +11,6 @@ import { notFound } from "next/navigation";
 
 export default async function Page() {
   const token = cookies().get(TOKEN);
-
   const isSuperAdmin = await canCreateAdmins(token?.value);
 
   if (!isSuperAdmin) return notFound();

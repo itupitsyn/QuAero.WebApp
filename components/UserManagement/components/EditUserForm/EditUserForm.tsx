@@ -129,7 +129,7 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAft
           {tCommon("cancelButton")}
         </Button>
         <Button type="submit" gradientDuoTone="redToYellow" disabled={isSubmitting}>
-          {t("saveButton")}
+          {tCommon("saveButton")}
         </Button>
       </div>
     </form>

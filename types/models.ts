@@ -23,3 +23,7 @@ export type UpdateUserRequest = {
   name?: string;
   permissions?: Permission[];
 };
+
+export type CreateSRTRequest = {
+  name: string;
+};

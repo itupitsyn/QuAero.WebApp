@@ -3,17 +3,17 @@
 import { UserApiModel } from "@/types/models";
 import { Button, Tooltip } from "flowbite-react";
 import { useTranslations } from "next-intl";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { TbEdit, TbRestore, TbTrash } from "react-icons/tb";
 
 interface ViewUserProps {
   user: UserApiModel;
-  onClick: (userId: string) => void;
+  onEditClick: (userId: string) => void;
   onDeleteUserClick: (user: UserApiModel) => void;
   onResetPasswordClick: (user: UserApiModel) => void;
 }
 
-export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick, onResetPasswordClick }) => {
+export const ViewUser: FC<ViewUserProps> = ({ user, onEditClick, onDeleteUserClick, onResetPasswordClick }) => {
   const t = useTranslations("userMgmtForm");
 
   return (
@@ -26,7 +26,7 @@ export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick, 
           <div>{user.name || "—"}</div>
         </div>
         <div className="flex gap-2">
-          <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onClick(user.id)}>
+          <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onEditClick(user.id)}>
             <TbEdit />
           </Button>
           <Button gradientDuoTone="redToYellow" outline size="xs" onClick={() => onDeleteUserClick(user)}>
@@ -41,10 +41,13 @@ export const ViewUser: FC<ViewUserProps> = ({ user, onClick, onDeleteUserClick, 
       <div className="flex flex-wrap gap-x-2">
         {Object.entries(user.permissions)
           .filter(([_, allowed]) => allowed)
-          .map(([permission]) => (
-            <Tooltip key={permission} content={t(`${permission}_tooltip`)}>
-              <span className="text-xs text-lime-500">{t(`${permission}_label`)}</span>
-            </Tooltip>
+          .map(([permission], idx, list) => (
+            <Fragment key={permission}>
+              <Tooltip content={t(`${permission}_tooltip`)}>
+                <span className="text-xs text-lime-500">{t(`${permission}_label`)}</span>
+              </Tooltip>
+              {idx < list.length - 1 && <span className="text-gray-400">|</span>}
+            </Fragment>
           ))}
       </div>
     </div>

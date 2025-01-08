@@ -78,6 +78,7 @@ export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit
   return (
     <Modal show={show} onClose={onClose}>
       <Modal.Header>{t("addUserFormHeader")}</Modal.Header>
+
       <Modal.Body>
         <form
           noValidate
@@ -137,12 +138,13 @@ export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit
           <PermissionList control={control} />
         </form>
       </Modal.Body>
+
       <Modal.Footer className="justify-end">
         <Button type="button" gradientDuoTone="redToYellow" outline onClick={onClose}>
           {tCommon("cancelButton")}
         </Button>
         <Button type="submit" gradientDuoTone="redToYellow" disabled={isSubmitting} form={FORM_ID}>
-          {t("addButton")}
+          {tCommon("addButton")}
         </Button>
       </Modal.Footer>
     </Modal>

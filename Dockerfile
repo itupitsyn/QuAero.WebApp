@@ -1,18 +1,15 @@
-ARG node_image=oven/bun:1
+ARG bun_image=oven/bun:1
 
-FROM $node_image AS dependencies
-WORKDIR /QuAero
-COPY package.json bun.lockb ./
-RUN bun i
+FROM $bun_image AS builder
 
-FROM $node_image AS builder
 WORKDIR /QuAero
 COPY . .
-COPY --from=dependencies /QuAero/node_modules ./node_modules
+RUN bun i
 RUN bunx prisma generate
 RUN bun run build
 
-FROM $node_image AS runner
+FROM $bun_image AS runner
+
 WORKDIR /QuAero
 ENV NODE_ENV=production
 

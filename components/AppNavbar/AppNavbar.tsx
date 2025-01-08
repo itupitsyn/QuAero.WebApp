@@ -1,4 +1,4 @@
-import { DarkThemeToggle, Navbar, NavbarBrand, NavbarCollapse, NavbarToggle } from "flowbite-react";
+import { DarkThemeToggle, Navbar } from "flowbite-react";
 import { UserInfo } from "../UserInfo";
 import { LocaleSwitcher } from "../LocaleSwitcher";
 import Image from "next/image";
