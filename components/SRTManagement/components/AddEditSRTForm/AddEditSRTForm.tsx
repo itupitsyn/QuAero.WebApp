@@ -49,7 +49,7 @@ export const AddEditSRTForm: FC<AddEditSRTFormProps> = ({ srt, onIsSubmitting, o
     async (formData) => {
       try {
         if (srt) {
-          updateSRT(srt.id, formData);
+          await updateSRT(srt.id, formData);
         } else {
           await createSRT(formData);
         }
