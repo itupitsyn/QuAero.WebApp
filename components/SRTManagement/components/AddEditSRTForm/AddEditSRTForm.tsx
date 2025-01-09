@@ -7,7 +7,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { SRT_FORM_ID } from "../../constants";
 import { toast } from "react-toastify";
-import { createSRT } from "@/utils/api";
+import { createSRT, updateSRT } from "@/utils/api";
 
 type SRTFormData = {
   name: string;
@@ -48,14 +48,18 @@ export const AddEditSRTForm: FC<AddEditSRTFormProps> = ({ srt, onIsSubmitting, o
   const submitHandler: SubmitHandler<SRTFormData> = useCallback(
     async (formData) => {
       try {
-        await createSRT(formData);
+        if (srt) {
+          updateSRT(srt.id, formData);
+        } else {
+          await createSRT(formData);
+        }
         reset();
         onSubmit();
       } catch {
         toast.error(tCommon("unknownErrorMessage"));
       }
     },
-    [onSubmit, reset, tCommon],
+    [onSubmit, reset, srt, tCommon],
   );
 
   useEffect(() => {

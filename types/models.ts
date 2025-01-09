@@ -27,3 +27,7 @@ export type UpdateUserRequest = {
 export type CreateSRTRequest = {
   name: string;
 };
+
+export type UpdateSRTRequest = {
+  name: string;
+};

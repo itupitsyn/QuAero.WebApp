@@ -20,6 +20,7 @@ export const SRTManagement: FC<SRTManagementProps> = ({ teams }) => {
   const tCommon = useTranslations("common");
   const [addSRTFormOpened, setAddSRTFormOpened] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [teamToDelete, setTeamToDelete] = useState<PrismaTypes.SearchRescueTeam>();
   const { refresh } = useRouter();
 
@@ -44,7 +45,7 @@ export const SRTManagement: FC<SRTManagementProps> = ({ teams }) => {
       await deleteSRT(teamToDelete.id);
       setTeamToDelete(undefined);
       refresh();
-    } catch (e: unknown) {
+    } catch {
       toast.error(tCommon("unknownErrorMessage"));
     }
   }, [refresh, tCommon, teamToDelete]);
@@ -65,7 +66,27 @@ export const SRTManagement: FC<SRTManagementProps> = ({ teams }) => {
           <Card key={item.id}>
             <div className="max-w-full truncate font-bold">{t("id", { id: item.id })}</div>
             {modes[item.id] === "edit" ? (
-              <></>
+              <>
+                <AddEditSRTForm
+                  srt={item}
+                  onSubmit={() => {
+                    refresh();
+                    onCancelClick(item.id);
+                  }}
+                  onIsSubmitting={setIsSaving}
+                />
+
+                <div className="flex justify-end">
+                  <div className="flex gap-4">
+                    <Button type="button" gradientDuoTone="redToYellow" outline onClick={() => onCancelClick(item.id)}>
+                      {tCommon("cancelButton")}
+                    </Button>
+                    <Button type="submit" gradientDuoTone="redToYellow" disabled={isSaving} form={SRT_FORM_ID}>
+                      {tCommon("saveButton")}
+                    </Button>
+                  </div>
+                </div>
+              </>
             ) : (
               <ViewSRT srt={item} onDeleteClick={setTeamToDelete} onEditClick={onEditClick} />
             )}

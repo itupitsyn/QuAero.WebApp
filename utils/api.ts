@@ -1,5 +1,5 @@
 import { SessionUser } from "@/types/auth";
-import { CreateSRTRequest, CreateUserRequest, UpdateUserRequest } from "@/types/models";
+import { CreateSRTRequest, CreateUserRequest, UpdateSRTRequest, UpdateUserRequest } from "@/types/models";
 import axios from "axios";
 
 export const createSuperAdmin = (params: { login: string; password: string }) => {
@@ -40,4 +40,8 @@ export const createSRT = (params: CreateSRTRequest) => {
 
 export const deleteSRT = (teamId: string) => {
   return axios.delete(`/api/srts/${teamId}`);
+};
+
+export const updateSRT = (teamId: string, params: UpdateSRTRequest) => {
+  return axios.patch(`/api/srts/${teamId}`, params);
 };
