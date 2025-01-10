@@ -52,6 +52,11 @@
     "lastSaError": "You can't delete the last superadmin"
   },
   "teamMgmtForm": {
-    "id": "id: {id}"
+    "title": "Search and rescue team management",
+    "id": "id: {id}",
+    "name": "Name",
+    "addSRTFormHeader": "Add search and rescue team",
+    "deleteTeamConfirmationHeader": "Delete search and rescue team",
+    "deleteTeamConfirmationText": "Do you really want to delete {srt}?"
   }
 }
