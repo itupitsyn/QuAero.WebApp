@@ -15,24 +15,27 @@ export default async function Page() {
 
   if (!isSuperAdmin) return notFound();
 
-  const users = await prisma.user.findMany({
-    select: {
-      createdAt: true,
-      updatedAt: true,
-      email: true,
-      id: true,
-      login: true,
-      name: true,
-      image: true,
-      Permissions: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const [users, srts] = await Promise.all([
+    prisma.user.findMany({
+      select: {
+        createdAt: true,
+        updatedAt: true,
+        email: true,
+        id: true,
+        login: true,
+        name: true,
+        image: true,
+        Permission: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.searchRescueTeam.findMany({ select: { name: true, id: true } }),
+  ]);
 
   const constructUser = (user: ArrayItem<typeof users>): UserApiModel => {
-    const { Permissions: prmsArray, ...result } = user;
+    const { Permission: prmsArray, ...result } = user;
     const permissions: UserApiModel["permissions"] = {
       [Permission.CanCreateAdmins]: false,
       [Permission.CanCreateEmployee]: false,
@@ -51,5 +54,5 @@ export default async function Page() {
     return { ...result, permissions };
   };
 
-  return <UserManagement users={users.map(constructUser)} />;
+  return <UserManagement users={users.map(constructUser)} srts={srts} />;
 }

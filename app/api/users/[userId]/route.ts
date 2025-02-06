@@ -21,7 +21,7 @@ export const DELETE = async (req: NextRequest, { params: { userId } }: RoutePara
     const usr = await prisma.user.findFirst({ where: { id: userId } });
     if (!usr) return new NextResponse("", { status: 404 });
 
-    const sas = await prisma.permissions.findMany({
+    const sas = await prisma.permission.findMany({
       where: {
         permission: Permission.CanCreateAdmins,
         allowed: true,
@@ -58,7 +58,7 @@ export const PATCH = async (req: NextRequest, { params: { userId } }: RouteParam
     const usr = await prisma.user.findFirst({ where: { id: userId } });
     if (!usr) return new NextResponse("", { status: 404 });
 
-    const sas = await prisma.permissions.findMany({
+    const sas = await prisma.permission.findMany({
       where: {
         permission: Permission.CanCreateAdmins,
         allowed: true,
@@ -82,9 +82,9 @@ export const PATCH = async (req: NextRequest, { params: { userId } }: RouteParam
     await prisma.user.update(updateData);
 
     if (permissions) {
-      await prisma.permissions.deleteMany({ where: { userId } });
+      await prisma.permission.deleteMany({ where: { userId } });
       if (permissions.length) {
-        await prisma.permissions.createMany({
+        await prisma.permission.createMany({
           data: permissions.map((permission) => ({ userId, permission, allowed: true })),
         });
       }

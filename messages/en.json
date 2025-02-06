@@ -7,7 +7,8 @@
     "cancelButton": "Cancel",
     "saveButton": "Submit",
     "deleteButton": "Delete",
-    "editButton": "Edit"
+    "editButton": "Edit",
+    "noData": "No data"
   },
   "home": {
     "title": "QuAero"
@@ -15,6 +16,7 @@
   "navbar": {
     "userManagement": "User management",
     "srtManagement": "Rescue team management",
+    "photoMarkup": "Photo markup",
     "signin": "Sign in",
     "signout": "Sign out"
   },

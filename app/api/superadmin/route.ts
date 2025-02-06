@@ -22,7 +22,7 @@ export const POST = async (req: NextRequest) => {
   try {
     const password = calculatePasswordHash(body.password);
     const newSu = await prisma.user.create({ data: { login: body.login, password } });
-    await prisma.permissions.create({
+    await prisma.permission.create({
       data: {
         allowed: true,
         permission: Permission.CanCreateAdmins,

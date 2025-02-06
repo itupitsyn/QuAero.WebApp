@@ -1,12 +1,17 @@
-import { Permission } from "@/types/permissions";
+import { UserApiPermissions } from "@/types/models";
 
 export type EditUserFormData = {
   name?: string | null;
   login: string;
-} & Partial<Record<Permission, boolean>>;
+} & UserApiPermissions;
 
 export type AddUserFormData = {
   name?: string | null;
   login: string;
   password: string;
-} & Partial<Record<Permission, boolean>>;
+} & UserApiPermissions;
+
+export type SRTOption = {
+  name: string;
+  id: string;
+};

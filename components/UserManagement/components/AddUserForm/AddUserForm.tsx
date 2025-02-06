@@ -11,17 +11,18 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { PermissionList } from "../PermissionList";
-import { AddUserFormData } from "../../types";
+import { AddUserFormData, SRTOption } from "../../types";
 
 const FORM_ID = "add-user-form";
 
 interface AddUserFormProps {
   show: boolean;
+  srts: SRTOption[];
   onClose: () => void;
   onAfterSubmit?: () => void;
 }
 
-export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit }) => {
+export const AddUserForm: FC<AddUserFormProps> = ({ show, srts, onClose, onAfterSubmit }) => {
   const t = useTranslations("userMgmtForm");
   const tCommon = useTranslations("common");
 
@@ -57,14 +58,17 @@ export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit
       if (formData[Permission.CanCreateSRT]) permissions.push(Permission.CanCreateSRT);
       if (formData[Permission.CanCreateSRTManager]) permissions.push(Permission.CanCreateSRTManager);
 
+      const params: CreateUserRequest = {
+        login: formData.login,
+        password: formData.password,
+        name: formData.name ?? undefined,
+        permissions,
+        srts: formData.srts?.map((item) => item.id),
+      };
+
       try {
-        const params: CreateUserRequest = {
-          login: formData.login,
-          password: formData.password,
-          name: formData.name ?? undefined,
-          permissions,
-        };
         await createUser(params);
+
         reset();
         onAfterSubmit?.();
         onClose();
@@ -135,7 +139,7 @@ export const AddUserForm: FC<AddUserFormProps> = ({ show, onClose, onAfterSubmit
             />
           </div>
 
-          <PermissionList control={control} />
+          <PermissionList control={control} srts={srts} />
         </form>
       </Modal.Body>
 

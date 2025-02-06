@@ -13,12 +13,14 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { ResetPasswordForm } from "./components/ResetPasswordForm";
 import { useAuth } from "@/contexts/AuthContext";
+import { SRTOption } from "./types";
 
 interface UserManagementProps {
   users: UserApiModel[];
+  srts: SRTOption[];
 }
 
-export const UserManagement: FC<UserManagementProps> = ({ users }) => {
+export const UserManagement: FC<UserManagementProps> = ({ users, srts }) => {
   const t = useTranslations("userMgmtForm");
   const tCommon = useTranslations("common");
   const { refresh } = useRouter();
@@ -87,7 +89,7 @@ export const UserManagement: FC<UserManagementProps> = ({ users }) => {
           >
             <div className="max-w-full truncate font-bold">{t("id", { id: item.id })}</div>
             {modes[item.id] === "edit" ? (
-              <EditUserForm user={item} onCancelClick={onCancelClick} onAfterSubmit={onAfterEdit} />
+              <EditUserForm user={item} srts={srts} onCancelClick={onCancelClick} onAfterSubmit={onAfterEdit} />
             ) : (
               <ViewUser
                 user={item}
@@ -100,7 +102,12 @@ export const UserManagement: FC<UserManagementProps> = ({ users }) => {
         ))}
       </div>
 
-      <AddUserForm show={addUserFormOpen} onClose={() => setAddUserFormOpen(false)} onAfterSubmit={refresh} />
+      <AddUserForm
+        show={addUserFormOpen}
+        srts={srts}
+        onClose={() => setAddUserFormOpen(false)}
+        onAfterSubmit={refresh}
+      />
 
       <Modal show={!!userToDelete} onClose={() => setUserToDelete(undefined)}>
         <Modal.Header>{t("deleteUserConfirmationHeader")}</Modal.Header>

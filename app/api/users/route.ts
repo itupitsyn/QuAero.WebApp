@@ -26,7 +26,7 @@ export const POST = async (req: NextRequest) => {
     const newUser = await prisma.user.create({ data: { login: body.login, password, name: body.name } });
 
     if (permissions.length) {
-      await prisma.permissions.createMany({
+      await prisma.permission.createMany({
         data: permissions.map((item) => ({ allowed: true, permission: item, userId: newUser.id })),
       });
     }

@@ -9,7 +9,7 @@ import { FC, useCallback, useMemo } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { PermissionList } from "../PermissionList";
-import { EditUserFormData } from "../../types";
+import { EditUserFormData, SRTOption } from "../../types";
 import { toast } from "react-toastify";
 import { updateUser } from "@/utils/api";
 import axios from "axios";
@@ -21,7 +21,7 @@ const getDefaultValues = (user: UserApiModel) => {
   };
 
   Object.entries(user.permissions).forEach(([k, v]) => {
-    if (v) formData[k as Permission] = true;
+    if (v) formData[k as Permission] = { allowed: false };
   });
 
   return formData;
@@ -29,11 +29,12 @@ const getDefaultValues = (user: UserApiModel) => {
 
 interface EditUserFormProps {
   user: UserApiModel;
+  srts: SRTOption[];
   onCancelClick: (userId: string) => void;
   onAfterSubmit?: (userId: string) => void;
 }
 
-export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAfterSubmit }) => {
+export const EditUserForm: FC<EditUserFormProps> = ({ user, srts, onCancelClick, onAfterSubmit }) => {
   const t = useTranslations("userMgmtForm");
   const tCommon = useTranslations("common");
 
@@ -64,13 +65,16 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAft
       if (formData[Permission.CanCreateSRT]) permissions.push(Permission.CanCreateSRT);
       if (formData[Permission.CanCreateSRTManager]) permissions.push(Permission.CanCreateSRTManager);
 
+      const params: UpdateUserRequest = {
+        login: formData.login,
+        name: formData.name ?? undefined,
+        permissions,
+        srts: formData.srts?.map((item) => item.id),
+      };
+
       try {
-        const params: UpdateUserRequest = {
-          login: formData.login,
-          name: formData.name ?? undefined,
-          permissions,
-        };
         await updateUser(user.id, params);
+
         reset();
         onAfterSubmit?.(user.id);
       } catch (e) {
@@ -121,7 +125,7 @@ export const EditUserForm: FC<EditUserFormProps> = ({ user, onCancelClick, onAft
           </div>
         </div>
 
-        <PermissionList control={control} />
+        <PermissionList control={control} srts={srts} />
       </div>
 
       <div className="flex gap-4 sm:self-end">

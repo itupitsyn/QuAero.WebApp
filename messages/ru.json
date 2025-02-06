@@ -7,7 +7,8 @@
     "cancelButton": "Отмена",
     "saveButton": "Сохранить",
     "deleteButton": "Удалить",
-    "editButton": "Редактировать"
+    "editButton": "Редактировать",
+    "noData": "Нет данных"
   },
   "home": {
     "title": "QuAero"
@@ -15,6 +16,7 @@
   "navbar": {
     "userManagement": "Управление пользователями",
     "srtManagement": "Управление отрядами",
+    "photoMarkup": "Разметка фотографий",
     "signin": "Войти",
     "signout": "Выйти"
   },

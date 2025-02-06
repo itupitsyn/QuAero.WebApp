@@ -1,5 +1,7 @@
 import { Permission } from "./permissions";
 
+export type UserApiPermissions = Partial<Record<Permission, { allowed: boolean; srts: string[] | null }>>;
+
 export type UserApiModel = {
   createdAt: Date;
   updatedAt: Date;
@@ -8,7 +10,7 @@ export type UserApiModel = {
   login: string;
   name: string | null;
   image: string | null;
-  permissions: Record<Permission, boolean>;
+  permissions: UserApiPermissions;
 };
 
 export type CreateUserRequest = {
@@ -16,12 +18,14 @@ export type CreateUserRequest = {
   password: string;
   name?: string;
   permissions?: Permission[];
+  srts?: string[];
 };
 
 export type UpdateUserRequest = {
   login?: string;
   name?: string;
   permissions?: Permission[];
+  srts?: string[];
 };
 
 export type CreateSRTRequest = {

@@ -60,6 +60,12 @@ export const UserInfo: FC = () => {
           </Dropdown.Item>
         )}
 
+        <Dropdown.Item>
+          <Link className="transition-opacity hover:opacity-60" href="/photo-markup">
+            {t("photoMarkup")}
+          </Link>
+        </Dropdown.Item>
+
         <Dropdown.Divider />
         <Dropdown.Item>
           <Link className="transition-opacity hover:opacity-60" href="/" onClick={onSignOutClick}>

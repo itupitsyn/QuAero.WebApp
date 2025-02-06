@@ -23,15 +23,26 @@ CREATE TABLE "Session" (
 );
 
 -- CreateTable
-CREATE TABLE "Permissions" (
-    "userId" TEXT NOT NULL,
-    "permission" TEXT NOT NULL,
-    "allowed" BOOLEAN NOT NULL,
-    "srtId" TEXT,
+CREATE TABLE "PermissionSRT" (
+    "id" TEXT NOT NULL,
+    "srtId" TEXT NOT NULL,
+    "permissionId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Permissions_pkey" PRIMARY KEY ("userId","permission")
+    CONSTRAINT "PermissionSRT_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Permission" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "permission" TEXT NOT NULL,
+    "allowed" BOOLEAN NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Permission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -64,16 +75,22 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Permission_userId_permission_key" ON "Permission"("userId", "permission");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "SearchRescueTeam_name_key" ON "SearchRescueTeam"("name");
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Permissions" ADD CONSTRAINT "Permissions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "PermissionSRT" ADD CONSTRAINT "PermissionSRT_srtId_fkey" FOREIGN KEY ("srtId") REFERENCES "SearchRescueTeam"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Permissions" ADD CONSTRAINT "Permissions_srtId_fkey" FOREIGN KEY ("srtId") REFERENCES "SearchRescueTeam"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "PermissionSRT" ADD CONSTRAINT "PermissionSRT_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES "Permission"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Permission" ADD CONSTRAINT "Permission_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Membership" ADD CONSTRAINT "Membership_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -5,7 +5,7 @@ import { isSomeEnum } from "./common";
 export const canCreateAdmins = async (token?: string) => {
   if (!token) return false;
 
-  const data = await prisma.permissions.findFirst({
+  const data = await prisma.permission.findFirst({
     where: {
       allowed: true,
       permission: Permission.CanCreateAdmins,
@@ -25,10 +25,12 @@ export const canCreateAdmins = async (token?: string) => {
   return !!data;
 };
 
-export const getUserPermissions = async (token?: string): Promise<Partial<Record<Permission, boolean>>> => {
+export const getUserPermissions = async (
+  token?: string,
+): Promise<Partial<Record<Permission, { allowed: boolean; srts: { id: string; name: string }[] }>>> => {
   if (!token) return {};
 
-  const data = await prisma.permissions.findMany({
+  const data = await prisma.permission.findMany({
     where: {
       allowed: true,
       user: {
